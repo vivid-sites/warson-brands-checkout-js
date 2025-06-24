@@ -13,7 +13,7 @@
     "nx:prerelease-build": "nx run core:prerelease-build",
     "nx:dev": "nx run core:dev",
     "preinstall": "npx check-node-version --package",
-    "prebuild": "rm -rf dist && rm -rf packages/test-framework/report",
+    "prebuild": "rm -rf dist && rm -rf packages/test-framework/report && rm -rf .nx/cache",
     "build": "npm-run-all nx:build",
     "build:server": "http-server dist",
     "typecheck": "tsc --noEmit -p ./tsconfig.base.json",
