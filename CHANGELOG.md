@@ -2,6 +2,57 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.614.1](https://github.com/bigcommerce/checkout-js/compare/v1.614.0...v1.614.1) (2025-06-26)
+
+## [1.614.0](https://github.com/bigcommerce/checkout-js/compare/v1.613.1...v1.614.0) (2025-06-26)
+
+
+### Features
+
+* **payment:** Stripe OCS radio button styling ([f43f280](https://github.com/bigcommerce/checkout-js/commit/f43f28089aff8bc0d3a73301025754147c7b094e))
+
+### [1.613.1](https://github.com/bigcommerce/checkout-js/compare/v1.613.0...v1.613.1) (2025-06-26)
+
+
+### Bug Fixes
+
+* **checkout:** Fix lint issues ([#2398](https://github.com/bigcommerce/checkout-js/issues/2398)) ([3ddf9b9](https://github.com/bigcommerce/checkout-js/commit/3ddf9b910fcc7fd665f2c2b31395995501d94c8a))
+
+## [1.613.0](https://github.com/bigcommerce/checkout-js/compare/v1.612.2...v1.613.0) (2025-06-25)
+
+
+### Features
+
+* **payment:** added BigCommercePaymentsCreditCardsPaymentMethod component ([15dea57](https://github.com/bigcommerce/checkout-js/commit/15dea575bb9e603de1ab32dc767ed82ecf763bc5))
+
+### [1.612.2](https://github.com/bigcommerce/checkout-js/compare/v1.612.1...v1.612.2) (2025-06-25)
+
+### [1.612.1](https://github.com/bigcommerce/checkout-js/compare/v1.612.0...v1.612.1) (2025-06-25)
+
+
+### Code Refactoring
+
+* **payment:** created PayPalCommerceCreditCardsPaymentMethod in paypal-commerce-integration package to remove the same component from core ([bbf3b53](https://github.com/bigcommerce/checkout-js/commit/bbf3b53af1744c45bc70345e075c95e93252feca))
+
+## [1.612.0](https://github.com/bigcommerce/checkout-js/compare/v1.611.2...v1.612.0) (2025-06-25)
+
+
+### Features
+
+* **payment:** Refactor code in order to use newly added skipRedirect… ([#2374](https://github.com/bigcommerce/checkout-js/issues/2374)) ([cbd91d5](https://github.com/bigcommerce/checkout-js/commit/cbd91d59f804b06bb8f6cc269cd6063411cc98a2))
+* **payment:** updated hosted credit card integration with card expiry field logic ([4fc610c](https://github.com/bigcommerce/checkout-js/commit/4fc610c98e166877cf4d07e55cee9cf1953ef64c))
+
+### [1.611.2](https://github.com/bigcommerce/checkout-js/compare/v1.611.1...v1.611.2) (2025-06-25)
+
+### [1.611.1](https://github.com/bigcommerce/checkout-js/compare/v1.611.0...v1.611.1) (2025-06-25)
+
+## [1.611.0](https://github.com/bigcommerce/checkout-js/compare/v1.610.3...v1.611.0) (2025-06-25)
+
+
+### Features
+
+* **extension:** Introduce new ReRenderShippingStep command ([#2383](https://github.com/bigcommerce/checkout-js/issues/2383)) ([0f7bdc0](https://github.com/bigcommerce/checkout-js/commit/0f7bdc06d7ecfbc7d308b74c7ca97ec8d48498e9))
+
 ### [1.610.3](https://github.com/bigcommerce/checkout-js/compare/v1.610.2...v1.610.3) (2025-06-24)
 
 
