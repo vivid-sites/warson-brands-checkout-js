@@ -33,7 +33,14 @@ interface WithPaymentTitleProps {
     cdnBasePath: string;
 }
 
-function getPaymentMethodTitle(
+interface PaymentMethodSubtitleProps {
+    onUnhandledError?(error: Error): void;
+    methodId: string;
+}
+
+type SubtitleType = ReactNode | ((subtitleProps?: PaymentMethodSubtitleProps) => ReactNode);
+
+export function getPaymentMethodTitle(
     language: LanguageService,
     basePath: string,
     checkoutSettings: CheckoutSettings,
@@ -41,7 +48,7 @@ function getPaymentMethodTitle(
 ): (method: PaymentMethod) => {
     logoUrl: string;
     titleText: string,
-    subtitle?: ReactNode | ((subtitleProps?: { onUnhandledError?(error: Error): void }) => ReactNode)
+    subtitle?: SubtitleType
 } {
     const cdnPath = (path: string) => `${basePath}${path}`;
 
@@ -82,11 +89,12 @@ function getPaymentMethodTitle(
             [PaymentMethodId.PaypalCommerce]: {
                 logoUrl: cdnPath('/img/payment-providers/paypal_commerce_logo.svg'),
                 titleText: '',
+                subtitle: (props: PaymentMethodSubtitleProps) => <PaypalCommerceCreditBanner containerId='paypal-commerce-banner-container' {...props} />
             },
             [PaymentMethodId.PaypalCommerceCredit]: {
                 logoUrl: cdnPath('/img/payment-providers/paypal_commerce_logo_letter.svg'),
                 titleText: methodDisplayName,
-                subtitle: (props: { onUnhandledError?(error: Error): void }) => <PaypalCommerceCreditBanner {...props} />
+                subtitle: (props: PaymentMethodSubtitleProps) => <PaypalCommerceCreditBanner containerId='paypal-commerce-credit-banner-container' {...props} />
             },
             [PaymentMethodId.PaypalCommerceAlternativeMethod]: {
                 logoUrl: method.logoUrl || '',
@@ -308,7 +316,7 @@ const PaymentMethodTitle: FunctionComponent<
     };
 
     const getSubtitle = () => {
-        const node = subtitle instanceof Function ? subtitle({ onUnhandledError }) : subtitle;
+        const node = subtitle instanceof Function ? subtitle({ onUnhandledError, methodId: method.id }) : subtitle;
 
         return node ? <div className="paymentProviderHeader-subtitleContainer">
             {node}
@@ -316,28 +324,36 @@ const PaymentMethodTitle: FunctionComponent<
     }
 
     return (
-        <div className="paymentProviderHeader-container">
+        <div className={
+            classNames(
+                'paymentProviderHeader-container',
+                {'paymentProviderHeader-container-googlePay': method.id.includes('googlepay')},
+            )
+        }>
             <div
                 className="paymentProviderHeader-nameContainer"
                 data-test={`payment-method-${method.id}`}
             >
                 {logoUrl && (
                     <img
-                        alt={methodName}
-                        className="paymentProviderHeader-img"
+                        alt={`${methodName} icon`}
+                        className={classNames(
+                            'paymentProviderHeader-img',
+                            {'paymentProviderHeader-img-applePay': method.id === 'applepay'},
+                            {'paymentProviderHeader-img-googlePay': method.id.includes('googlepay')},
+                        )}
                         data-test="payment-method-logo"
                         src={logoUrl}
                     />
                 )}
 
                 {titleText && (
-                    <div aria-level={6} className={classNames('paymentProviderHeader-name',
+                    <div className={classNames('paymentProviderHeader-name',
                         { 'sub-header': newFontStyle })}
-                        data-test="payment-method-name" role="heading">
+                        data-test="payment-method-name">
                         {titleText}
                     </div>
                 )}
-
                 {getSubtitle()}
             </div>
             <div className="paymentProviderHeader-cc">
