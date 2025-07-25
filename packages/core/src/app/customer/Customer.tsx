@@ -18,7 +18,6 @@ import { AnalyticsContextProps } from '@bigcommerce/checkout/analytics';
 import { shouldUseStripeLinkByMinimumAmount } from '@bigcommerce/checkout/instrument-utils';
 import { CheckoutContextProps } from '@bigcommerce/checkout/payment-integration-api';
 import { isPayPalFastlaneMethod } from '@bigcommerce/checkout/paypal-fastlane-integration';
-import { CustomerSkeleton } from '@bigcommerce/checkout/ui';
 
 import { withAnalytics } from '../analytics';
 import { withCheckout } from '../checkout';
@@ -160,14 +159,18 @@ class Customer extends Component<CustomerProps & WithCheckoutCustomerProps & Ana
         const shouldRenderGuestForm = viewType === CustomerViewType.Guest;
         const shouldRenderCreateAccountForm = viewType === CustomerViewType.CreateAccount;
         const shouldRenderLoginForm = !shouldRenderGuestForm && !shouldRenderCreateAccountForm;
+        
+        if (!isReady) {
+            return null;
+        }
 
         return (
-            <CustomerSkeleton isLoading={!isReady}>
+            <>
                 {isEmailLoginFormOpen && this.renderEmailLoginLinkForm()}
                 {shouldRenderLoginForm && this.renderLoginForm()}
                 {shouldRenderGuestForm && this.renderGuestForm()}
                 {shouldRenderCreateAccountForm && this.renderCreateAccountForm()}
-            </CustomerSkeleton>
+            </>
         );
     }
 
@@ -318,7 +321,6 @@ class Customer extends Component<CustomerProps & WithCheckoutCustomerProps & Ana
             isSigningIn,
             isExecutingPaymentMethodCheckout,
             isAccountCreationEnabled,
-            providerWithCustomCheckout,
             signInError,
             isFloatingLabelEnabled,
             viewType,
@@ -327,11 +329,7 @@ class Customer extends Component<CustomerProps & WithCheckoutCustomerProps & Ana
         return (
             <LoginForm
                 canCancel={isGuestEnabled}
-                continueAsGuestButtonLabelId={
-                    providerWithCustomCheckout
-                        ? 'customer.continue'
-                        : 'customer.continue_as_guest_action'
-                }
+                continueAsGuestButtonLabelId="customer.continue_as_guest_action"
                 email={this.draftEmail || email}
                 forgotPasswordUrl={forgotPasswordUrl}
                 isExecutingPaymentMethodCheckout={isExecutingPaymentMethodCheckout}
